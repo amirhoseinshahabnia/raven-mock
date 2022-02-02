@@ -1,0 +1,316 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-width: 1366px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  font-size: 1em;
+  line-height: 1.25em;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+.whiteBg {
+  background-color: #fff;
+}
+
+.blackBg {
+  background-color: #000;
+}
+
+.mainBg {
+  background-color: #00fdff;
+}
+
+.whiteOpacity {
+  background-color: hsla(0, 0%, 100%, 0.12);
+}
+
+.black {
+  color: #000;
+}
+
+.white {
+  color: #fff;
+}
+
+.primaryColor {
+  color: #00fdff;
+}
+
+.center {
+  text-align: center;
+}
+
+.block {
+  width: 100%;
+  display: block;
+}
+
+.reg-title {
+  font-size: 2.4em;
+}
+
+.reg-body {
+  margin: 1em 0 0;
+}
+
+.reg-padding {
+  padding: 50px 0;
+}
+
+.content-ctn {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.opacity:hover {
+  opacity: 0.8;
+}
+
+header {
+  background-color: #000;
+}
+
+header.sticky {
+  background-color: transparent;
+}
+
+.main-nav {
+  padding: 0 25px;
+  height: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+
+.main-nav ul {
+  display: flex;
+}
+
+.main-nav ul li a:first-child {
+  margin-right: 0.625em;
+}
+
+.main-logo img {
+  display: block;
+  width: 80px;
+  margin: 0 auto;
+}
+
+.bag {
+  width: 18px;
+  margin-left: auto;
+}
+
+.secondary-nav {
+  padding: 0 25px;
+  height: 64px;
+  display: grid;
+  grid-template-columns: 57% 43%;
+  background: #000;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
+  align-items: center;
+  transition: background 1s;
+}
+
+.sticky .secondary-nav {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(37px);
+}
+
+.secondary-nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.secondary-nav ul li a {
+  font-size: 0.9em;
+  line-height: 1em;
+}
+
+#raven-logo {
+  display: block;
+  width: 85px;
+}
+
+header .main-btn {
+  font-weight: 700;
+}
+
+.main-btn {
+  padding: 9px 35.5px;
+  border-radius: 100px;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  left: 0;
+  right: 0;
+}
+
+#slider {
+  display: block;
+  width: 100%;
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+#slider.fadeOut {
+  opacity: 0;
+}
+
+.hero {
+  height: 768px;
+  overflow: hidden;
+}
+
+.core-big {
+  padding-top: 100px;
+}
+
+.core-big .content-ctn {
+  margin-bottom: 50px;
+}
+
+.slider-showcase img {
+  display: block;
+  width: 80%;
+}
+
+.slider-showcase .slick-prev,
+.slider-showcase .slick-next {
+  z-index: 9;
+}
+
+.slider-showcase .slick-prev {
+  left: 65px;
+}
+
+.slider-showcase .slick-next {
+  right: 65px;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  visibility: hidden;
+}
+
+.backdrop.show {
+  visibility: visible;
+}
+
+.lightbox {
+  width: 60%;
+  margin: 0 auto;
+  height: auto;
+  text-align: center;
+  padding: 25px 0;
+}
+
+.full-btn {
+  width: 100%;
+  border-radius: 100px;
+  cursor: pointer;
+  margin-top: 2.5em;
+  padding: 13px 0;
+  text-transform: uppercase;
+}
+
+.row {
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  margin: 10px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.img {
+  height: 50%;
+  margin: 10px;
+}
+
+.img-1 {
+  background: url('imgs/thumb1.jpg') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+}
+.img-2 {
+  background: url('imgs/core-station-desktop.png') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+}
+.img-3 {
+  background: url('imgs/core-station-desktop.png') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+}
+.img-4 {
+  background: url('imgs/thumb1.jpg') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+}
+
+.mtz-big-ctn {
+  position: relative;
+  padding-top: 75px;
+}
+
+.mtz-big-ctn .custom-content {
+  position: absolute;
+  width: 50%;
+  top: 100px;
+  right: 140px;
+}
+
+@media screen and (min-width: 800px) {
+  .row {
+    height: 600px;
+  }
+
+  .img {
+    height: 50%;
+  }
+
+  .img-1,
+  .img-4 {
+    width: 29%;
+  }
+  .img-2,
+  .img-3 {
+    width: 65%;
+  }
+}
+
+@media (min-width: 1350px) {
+  .secondary-nav {
+    grid-template-columns: 66% 34%;
+  }
+}
