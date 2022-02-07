@@ -1,7 +1,37 @@
 window.addEventListener('load', () => {
+  const body = document.querySelector('body');
   const header = document.querySelector('header');
   const backdrop = document.querySelector('.backdrop');
   const showLb = document.getElementById('show-lb');
+
+  // hor slider batch commands
+  const leftArrow = document.querySelector('.left-arrow');
+  const rightArrow = document.querySelector('.right-arrow');
+  const batchImg = document.getElementById('batch-hor-img');
+  var offset = 0;
+  var left = 0;
+  var imgWidth = batchImg.clientWidth;
+  var visibleWidth = body.clientWidth - body.clientWidth / 10;
+
+  rightArrow.addEventListener('click', () => {
+    if (left >= -(imgWidth - visibleWidth)) {
+      offset -= 250;
+      batchImg.style.left = offset + 'px';
+    }
+    left = parseInt(batchImg.style.left.split('px')[0]);
+  });
+
+  leftArrow.addEventListener('click', () => {
+    if (left === 0) {
+      return;
+    }
+
+    if (left < 0) {
+      offset += 250;
+      batchImg.style.left = offset + 'px';
+    }
+    left = parseInt(batchImg.style.left.split('px')[0]);
+  });
 
   showLb.addEventListener('click', () => {
     backdrop.style.visibility = 'visible';
@@ -34,12 +64,6 @@ window.addEventListener('load', () => {
   });
 
   gsap.registerPlugin(ScrollTrigger);
-
-  const anim = gsap.fromTo(
-    '.fadeIn',
-    { opacity: 0 },
-    { opacity: 1, duration: 1 }
-  );
 
   const tl = gsap.timeline();
   tl.to('.fadeIn', { opacity: 1, duration: 1 });

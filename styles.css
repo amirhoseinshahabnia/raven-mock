@@ -75,6 +75,10 @@ ul {
   padding: 50px 0;
 }
 
+.padding-bottom {
+  padding-bottom: 50px;
+}
+
 .content-ctn {
   max-width: 50%;
   margin: 0 auto;
@@ -288,6 +292,50 @@ header .main-btn {
   width: 50%;
   top: 100px;
   right: 140px;
+}
+
+img.features {
+  display: block;
+  width: 65%;
+  margin: 0 auto;
+}
+
+/* Horizontal Batch Slider */
+
+#batch-horizontal-silder {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hor-img-ctn {
+  width: 90%;
+  margin: 0 auto;
+  height: 282px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+#batch-hor-img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  transition: left 0.5s ease-in-out;
+}
+
+#batch-horizontal-silder .left-arrow {
+  position: absolute;
+  left: 1.25%;
+  cursor: pointer;
+}
+
+#batch-horizontal-silder .right-arrow {
+  position: absolute;
+  right: 1.25%;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 800px) {
