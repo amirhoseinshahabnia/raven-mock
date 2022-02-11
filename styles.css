@@ -442,6 +442,16 @@ img.img-desktop {
   opacity: 1;
 }
 
+/* Gestures testing whenever enters view  */
+#gestures-vid {
+  outline: solid 5px #fff;
+  transition: outline 0.5s ease-in;
+}
+
+#gestures-vid.activated {
+  outline-width: 10px;
+}
+
 @media screen and (min-width: 800px) {
   .row {
     height: 600px;
