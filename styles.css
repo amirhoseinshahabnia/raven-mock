@@ -444,12 +444,14 @@ img.img-desktop {
 
 /* Gestures testing whenever enters view  */
 #gestures-vid {
-  outline: solid 5px #fff;
+  outline: solid 1px #fff;
   transition: outline 0.5s ease-in;
+  display: block;
+  margin: 0 auto;
 }
 
 #gestures-vid.activated {
-  outline-width: 10px;
+  outline-width: 5px;
 }
 
 /* Prod image hover */

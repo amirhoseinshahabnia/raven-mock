@@ -61,12 +61,15 @@ window.addEventListener('load', () => {
       }
     }
 
-    if (isScrolledIntoView(gesturesImg)) {
+    var isPuased = false;
+    if (isScrolledIntoView(gestureVid)) {
       console.log('Gestures entered the view');
-      gesturesImg.classList.add('activated');
+      gestureVid.classList.add('activated');
+      gestureVid.play();
     } else {
-      if (gesturesImg.classList.contains('activated')) {
-        gesturesImg.classList.remove('activated');
+      if (gestureVid.classList.contains('activated')) {
+        gestureVid.classList.remove('activated');
+        gestureVid.pause();
       }
     }
   };
@@ -164,7 +167,7 @@ window.addEventListener('load', () => {
     document.querySelector('.selected-main').classList.remove('selected-main');
   });
 
-  var gesturesImg = document.getElementById('gestures-vid');
+  var gestureVid = document.getElementById('gestures-vid');
 
   function isScrolledIntoView(elem) {
     var windowViewTop = window.scrollY;
