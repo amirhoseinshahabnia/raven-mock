@@ -29,6 +29,7 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script
       type="text/javascript"
       src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
@@ -184,13 +185,17 @@
           take you seconds.
         </p>
       </div>
-      <div id="batch-horizontal-silder" class="padding-bottom">
+      <div id="batch-horizontal-silder">
         <div class="hor-img-ctn">
           <img
             src="imgs/batch-commands.png"
             alt="RAVEN Batch Commands"
             id="batch-hor-img"
           />
+          <div class="circle-f positive-c" id="batch-first"></div>
+          <div class="circle-f positive-c" id="batch-second"></div>
+          <div class="circle-f positive-c" id="batch-third"></div>
+          <div class="circle-f positive-c" id="batch-fourth"></div>
         </div>
         <img
           src="imgs/left-arrow.png"
@@ -202,6 +207,10 @@
           alt="Right Arrow"
           class="right-arrow opacity"
         />
+        <div class="desc white" id="desc-details">
+          <h3></h3>
+          <p></p>
+        </div>
       </div>
     </section>
     <section class="blackBg padding-bottom">

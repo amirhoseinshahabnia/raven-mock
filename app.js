@@ -13,6 +13,12 @@ window.addEventListener('load', () => {
   var imgWidth = batchImg.clientWidth;
   var visibleWidth = body.clientWidth - body.clientWidth / 10;
 
+  var allCircles = document.querySelectorAll('.circle-f');
+
+  var descDetails = document.getElementById('desc-details');
+  var descTitle = document.querySelector('#desc-details h3');
+  var descContent = document.querySelector('#desc-details p');
+
   // Product img vars
   // const prodFullImg = document.getElementById('prod-full-img');
   // const mtiFull = document.getElementById('mti2-full');
@@ -21,10 +27,45 @@ window.addEventListener('load', () => {
   const prodSlider = document.querySelector('.slick-prod-slider');
   const prodCloseBtn = document.getElementById('prod-close-btn');
 
+  const batchData = [
+    {
+      number: 1,
+      title: 'Lorem Ipsum 1',
+      content:
+        'dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    },
+    {
+      number: 2,
+      title: 'Lorem Ipsum 2',
+      content:
+        'dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    },
+    {
+      number: 3,
+      title: 'Lorem Ipsum 3',
+      content:
+        'dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    },
+    {
+      number: 4,
+      title: 'Lorem Ipsum 4',
+      content:
+        'dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    },
+  ];
+
+  jQuery.easing.def = 'easeInSine';
+
   rightArrow.addEventListener('click', () => {
     if (left >= -(imgWidth - visibleWidth)) {
       offset -= 333;
       batchImg.style.left = offset + 'px';
+
+      allCircles.forEach((circle) => {
+        $(circle).animate({
+          left: '-=333',
+        });
+      }, 500);
     }
     left = parseInt(batchImg.style.left.split('px')[0]);
   });
@@ -37,6 +78,12 @@ window.addEventListener('load', () => {
     if (left < 0) {
       offset += 333;
       batchImg.style.left = offset + 'px';
+
+      allCircles.forEach((circle) => {
+        $(circle).animate({
+          left: '+=333',
+        });
+      });
     }
     left = parseInt(batchImg.style.left.split('px')[0]);
   });
@@ -178,4 +225,24 @@ window.addEventListener('load', () => {
 
     return elemBottom <= windowViewBottom && elemTop >= windowViewTop;
   }
+
+  allCircles.forEach((circle, i) => {
+    circle.addEventListener('click', () => {
+      allCircles.forEach((elem) => {
+        if (elem !== circle) {
+          if (!elem.classList.contains('positive-c')) {
+            elem.classList.add('positive-c');
+          }
+        }
+      });
+      if (circle.classList.contains('positive-c')) {
+        descDetails.classList.add('activated');
+        descTitle.innerText = batchData[i].title;
+        descContent.innerText = batchData[i].content;
+      } else {
+        descDetails.classList.remove('activated');
+      }
+      circle.classList.toggle('positive-c');
+    });
+  });
 });

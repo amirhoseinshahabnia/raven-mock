@@ -306,6 +306,7 @@ img.img-desktop {
   position: relative;
   display: flex;
   align-items: center;
+  padding-bottom: 150px;
 }
 
 .hor-img-ctn {
@@ -471,6 +472,72 @@ figure {
   transform: scale(1.2);
 }
 
+/* Batch Commands Info Circles */
+.circle-f {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: #00f9ff;
+  position: absolute;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9;
+  animation: pulse linear 1.3s infinite;
+  top: calc(50% - 15px);
+  /* transition: left 0s ease-in-out; */
+}
+
+.circle-f:after {
+  content: '-';
+  line-height: 0.9em;
+  font-size: 32px;
+  margin-top: -3px;
+  height: 30px;
+}
+
+.positive-c:after {
+  content: '+';
+  line-height: 33px;
+  font-size: 26px;
+  height: 30px;
+}
+
+#batch-first {
+  left: 500px;
+}
+
+#batch-second {
+  left: 1000px;
+}
+
+#batch-third {
+  left: 1850px;
+}
+
+#batch-fourth {
+  left: 2700px;
+}
+
+.desc {
+  position: absolute;
+  bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.65);
+  left: 15%;
+  right: 15%;
+}
+
+#desc-details {
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+
+#desc-details.activated {
+  opacity: 1;
+}
+
 @media screen and (min-width: 800px) {
   .row {
     height: 600px;
@@ -493,5 +560,22 @@ figure {
 @media (min-width: 1350px) {
   .secondary-nav {
     grid-template-columns: 66% 34%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    /* transform: scale(0.95); */
+    box-shadow: 0 0 0 0 rgba(0, 249, 255, 0.7);
+  }
+
+  70% {
+    /* transform: scale(1); */
+    box-shadow: 0 0 0 20px rgba(0, 249, 255, 0);
+  }
+
+  100% {
+    /* transform: scale(0.95); */
+    box-shadow: 0 0 0 0 rgba(0, 249, 255, 0);
   }
 }
