@@ -58,10 +58,8 @@ window.addEventListener('load', () => {
       batchImg.style.left = offset + 'px';
 
       allCircles.forEach((circle) => {
-        $(circle).animate({
-          left: '-=333',
-        });
-      }, 0);
+        gsap.to(circle, { left: '-=333', duration: 0, ease: 'none' });
+      });
     }
     left = parseInt(batchImg.style.left.split('px')[0]);
   });
@@ -76,9 +74,7 @@ window.addEventListener('load', () => {
       batchImg.style.left = offset + 'px';
 
       allCircles.forEach((circle) => {
-        $(circle).animate({
-          left: '+=333',
-        });
+        gsap.to(circle, { left: '+=333', duration: 0, ease: 'none' });
       });
     }
     left = parseInt(batchImg.style.left.split('px')[0]);

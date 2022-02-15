@@ -478,8 +478,8 @@ figure {
 
 /* Batch Commands Info Circles */
 .circle-f {
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
   border-radius: 100%;
   background-color: #00f9ff;
   position: absolute;
@@ -490,23 +490,23 @@ figure {
   align-items: center;
   z-index: 9;
   animation: pulse linear 1.3s infinite;
-  top: calc(50% - 15px);
-  transition: left 0s ease-in-out;
+  top: calc(50% - 22.5px);
+  transition: left 0.5s ease-in-out;
 }
 
 .circle-f:after {
   content: '-';
   line-height: 0.9em;
-  font-size: 32px;
+  font-size: 46px;
   margin-top: -3px;
-  height: 30px;
+  height: 45px;
 }
 
 .positive-c:after {
   content: '+';
-  line-height: 33px;
-  font-size: 26px;
-  height: 30px;
+  line-height: 47px;
+  font-size: 36px;
+  height: 45px;
 }
 
 #batch-first {
