@@ -20,10 +20,6 @@ window.addEventListener('load', () => {
   var descContent = document.querySelector('#desc-details p');
 
   // Product img vars
-  // const prodFullImg = document.getElementById('prod-full-img');
-  // const mtiFull = document.getElementById('mti2-full');
-  // const coreFull = document.getElementById('core-full');
-  // const mtzFull = document.getElementById('mtz-full');
   const prodSlider = document.querySelector('.slick-prod-slider');
   const prodCloseBtn = document.getElementById('prod-close-btn');
 
@@ -54,7 +50,7 @@ window.addEventListener('load', () => {
     },
   ];
 
-  jQuery.easing.def = 'easeInSine';
+  // jQuery.easing.def = 'easeInExpo';
 
   rightArrow.addEventListener('click', () => {
     if (left >= -(imgWidth - visibleWidth)) {
@@ -65,7 +61,7 @@ window.addEventListener('load', () => {
         $(circle).animate({
           left: '-=333',
         });
-      }, 500);
+      }, 0);
     }
     left = parseInt(batchImg.style.left.split('px')[0]);
   });
@@ -98,6 +94,10 @@ window.addEventListener('load', () => {
     }
   });
 
+  if (window.scrollY !== 0) {
+    header.classList.add('sticky');
+  }
+
   window.onscroll = () => {
     console.log('Hey there miss Zahra!');
     header.classList.add('sticky');
@@ -108,9 +108,7 @@ window.addEventListener('load', () => {
       }
     }
 
-    var isPuased = false;
     if (isScrolledIntoView(gestureVid)) {
-      console.log('Gestures entered the view');
       gestureVid.classList.add('activated');
       gestureVid.play();
     } else {
@@ -244,5 +242,25 @@ window.addEventListener('load', () => {
       }
       circle.classList.toggle('positive-c');
     });
+  });
+
+  // Top header links hash animations
+  $('.header-links').on('click', function (event) {
+    if (this.hash !== '') {
+      event.preventDefault();
+
+      var hash = this.hash;
+
+      $('html, body').animate(
+        {
+          scrollTop: $(hash).offset().top - 114,
+        },
+        800,
+        function () {
+          // Add hash (#) to URL when done scrolling (default click behavior)
+          window.location.hash = hash;
+        }
+      );
+    }
   });
 });
