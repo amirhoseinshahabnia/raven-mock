@@ -509,6 +509,36 @@ figure {
   height: 45px;
 }
 
+.ver-ln {
+  position: absolute;
+  height: 190px;
+  border-left: 2px dashed #00f9ff;
+
+  top: calc(50% - 75px);
+  opacity: 0;
+  transition: opacity 0.5s linear, left 0.5s ease-in-out;
+}
+
+.ver-ln.activated {
+  opacity: 1;
+}
+
+#ln-0 {
+  left: calc(5% + 522.5px);
+}
+
+#ln-1 {
+  left: calc(5% + 1022.5px);
+}
+
+#ln-2 {
+  left: calc(5% + 1872.5px);
+}
+
+#ln-3 {
+  left: calc(5% + 2722.5px);
+}
+
 #batch-first {
   left: 500px;
 }

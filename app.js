@@ -14,10 +14,12 @@ window.addEventListener('load', () => {
   var visibleWidth = body.clientWidth - body.clientWidth / 10;
 
   var allCircles = document.querySelectorAll('.circle-f');
+  var allVerticalLines = document.querySelectorAll('.ver-ln');
 
   var descDetails = document.getElementById('desc-details');
   var descTitle = document.querySelector('#desc-details h3');
   var descContent = document.querySelector('#desc-details p');
+  var verticalLineeOne = document.getElementById('ln-1');
 
   // Product img vars
   const prodSlider = document.querySelector('.slick-prod-slider');
@@ -50,7 +52,32 @@ window.addEventListener('load', () => {
     },
   ];
 
-  // jQuery.easing.def = 'easeInExpo';
+  function removeBatchDetails() {
+    if (descDetails.classList.contains('activated')) {
+      descDetails.classList.remove('activated');
+    }
+
+    allVerticalLines.forEach((line) => {
+      if (line.classList.contains('activated')) {
+        line.classList.remove('activated');
+      }
+    });
+
+    allCircles.forEach((circle) => {
+      if (!circle.classList.contains('positive-c')) {
+        circle.classList.add('positive-c');
+      }
+    });
+  }
+
+  function moveItemsHor(item, direction) {
+    if (direction === 'left') {
+      gsap.to(item, { left: '-=333', duration: 0, ease: 'none' });
+    }
+    if (direction === 'right') {
+      gsap.to(item, { left: '+=333', duration: 0, ease: 'none' });
+    }
+  }
 
   rightArrow.addEventListener('click', () => {
     if (left >= -(imgWidth - visibleWidth)) {
@@ -58,10 +85,16 @@ window.addEventListener('load', () => {
       batchImg.style.left = offset + 'px';
 
       allCircles.forEach((circle) => {
-        gsap.to(circle, { left: '-=333', duration: 0, ease: 'none' });
+        moveItemsHor(circle, 'left');
+      });
+
+      allVerticalLines.forEach((line) => {
+        moveItemsHor(line, 'left');
       });
     }
     left = parseInt(batchImg.style.left.split('px')[0]);
+
+    removeBatchDetails();
   });
 
   leftArrow.addEventListener('click', () => {
@@ -74,10 +107,30 @@ window.addEventListener('load', () => {
       batchImg.style.left = offset + 'px';
 
       allCircles.forEach((circle) => {
-        gsap.to(circle, { left: '+=333', duration: 0, ease: 'none' });
+        moveItemsHor(circle, 'right');
+      });
+
+      allVerticalLines.forEach((line) => {
+        moveItemsHor(line, 'right');
       });
     }
     left = parseInt(batchImg.style.left.split('px')[0]);
+
+    if (descDetails.classList.contains('activated')) {
+      descDetails.classList.remove('activated');
+    }
+
+    allVerticalLines.forEach((line) => {
+      if (line.classList.contains('activated')) {
+        line.classList.remove('activated');
+      }
+    });
+
+    allCircles.forEach((circle) => {
+      if (!circle.classList.contains('positive-c')) {
+        circle.classList.add('positive-c');
+      }
+    });
   });
 
   showLb.addEventListener('click', () => {
@@ -229,12 +282,23 @@ window.addEventListener('load', () => {
           }
         }
       });
+
+      allVerticalLines.forEach((line) => {
+        if (line !== document.getElementById(`ln-${i}`)) {
+          if (line.classList.contains('activated')) {
+            line.classList.remove('activated');
+          }
+        }
+      });
+
       if (circle.classList.contains('positive-c')) {
         descDetails.classList.add('activated');
         descTitle.innerText = batchData[i].title;
         descContent.innerText = batchData[i].content;
+        document.getElementById(`ln-${i}`).classList.add('activated');
       } else {
         descDetails.classList.remove('activated');
+        document.getElementById(`ln-${i}`).classList.remove('activated');
       }
       circle.classList.toggle('positive-c');
     });
