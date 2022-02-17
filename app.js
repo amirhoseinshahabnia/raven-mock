@@ -25,6 +25,15 @@ window.addEventListener('load', () => {
   const prodSlider = document.querySelector('.slick-prod-slider');
   const prodCloseBtn = document.getElementById('prod-close-btn');
 
+  var mtiSelector = document.getElementById('mti-img-selector');
+  var coreSelector = document.getElementById('core-img-selector');
+  var mtzSelector = document.getElementById('mtz-img-selector');
+  var allProdImgs = document.querySelectorAll('prod-tile-image');
+
+  // Batch commands auto hor scroll
+  const batchCtn = document.getElementById('batch-ctn');
+  var continueScroll = true;
+
   const batchData = [
     {
       number: 1,
@@ -70,48 +79,72 @@ window.addEventListener('load', () => {
     });
   }
 
-  function moveItemsHor(item, direction) {
+  function moveItemsHor(item, direction, amount) {
     if (direction === 'left') {
-      gsap.to(item, { left: '-=333', duration: 0, ease: 'none' });
+      gsap.to(item, {
+        left: `-=${parseInt(amount)}`,
+        duration: 0,
+        ease: 'none',
+      });
     }
     if (direction === 'right') {
-      gsap.to(item, { left: '+=333', duration: 0, ease: 'none' });
+      gsap.to(item, {
+        left: `+=${parseInt(amount)}`,
+        duration: 0,
+        ease: 'none',
+      });
     }
   }
 
-  rightArrow.addEventListener('click', () => {
+  function moveImageToRight(amount) {
     if (left >= -(imgWidth - visibleWidth)) {
-      offset -= 333;
+      offset -= amount;
       batchImg.style.left = offset + 'px';
 
       allCircles.forEach((circle) => {
-        moveItemsHor(circle, 'left');
+        moveItemsHor(circle, 'left', amount);
       });
 
       allVerticalLines.forEach((line) => {
-        moveItemsHor(line, 'left');
+        moveItemsHor(line, 'left', amount);
       });
     }
     left = parseInt(batchImg.style.left.split('px')[0]);
+    if (left < -1999) {
+      continueScroll = false;
+    }
 
     removeBatchDetails();
+  }
+
+  var circlesInitialLeft = [];
+
+  allCircles.forEach((circle) => {
+    circlesInitialLeft.push(circle);
   });
 
-  leftArrow.addEventListener('click', () => {
+  console.log(circlesInitialLeft);
+
+  function moveImageToLeft(amount) {
     if (left === 0) {
       return;
     }
 
+    if (left >= -amount && left < 0) {
+      batchImg.style.left = 0;
+      return;
+    }
+
     if (left < 0) {
-      offset += 333;
+      offset += amount;
       batchImg.style.left = offset + 'px';
 
       allCircles.forEach((circle) => {
-        moveItemsHor(circle, 'right');
+        moveItemsHor(circle, 'right', amount);
       });
 
       allVerticalLines.forEach((line) => {
-        moveItemsHor(line, 'right');
+        moveItemsHor(line, 'right', amount);
       });
     }
     left = parseInt(batchImg.style.left.split('px')[0]);
@@ -131,6 +164,14 @@ window.addEventListener('load', () => {
         circle.classList.add('positive-c');
       }
     });
+  }
+
+  rightArrow.addEventListener('click', () => {
+    moveImageToRight(333);
+  });
+
+  leftArrow.addEventListener('click', () => {
+    moveImageToLeft(333);
   });
 
   showLb.addEventListener('click', () => {
@@ -143,13 +184,23 @@ window.addEventListener('load', () => {
     }
   });
 
+  document.getElementById('lb-close-btn').addEventListener('click', () => {
+    backdrop.style.visibility = 'hidden';
+  });
+
   if (window.scrollY !== 0) {
     header.classList.add('sticky');
   }
 
-  window.onscroll = () => {
+  var onBatchCtn = false;
+  var isGoingUp;
+
+  window.onscroll = (e) => {
     console.log('Hey there miss Zahra!');
     header.classList.add('sticky');
+
+    isGoingUp = this.oldScroll > this.scrollY;
+    this.oldScroll = this.scrollY;
 
     if (window.scrollY === 0) {
       if (header.classList.contains('sticky')) {
@@ -166,7 +217,54 @@ window.addEventListener('load', () => {
         gestureVid.pause();
       }
     }
+
+    // batchImg.addEventListener('mouseenter', () => {
+    //   setTimeout(() => {
+    //     document.querySelector('.container').classList.add('disable-scroll');
+    //     batchCtn.classList.add('disable-scroll');
+    //     onBatchCtn = true;
+    //   }, 400);
+    // });
+    // if (onBatchCtn) {
+    //   if (!isGoingUp) {
+    //     moveImageToRight(45);
+    //   } else {
+    //     moveImageToLeft(45);
+    //   }
+    // }
   };
+
+  var oldProgress = 0;
+  var upDirection;
+  var controller = new ScrollMagic.Controller();
+  var pinBatchToScene = new ScrollMagic.Scene({
+    triggerElement: '.pins',
+    triggerHook: 0.14,
+    duration: 1000,
+  })
+    .setPin('.pins')
+    .addTo(controller);
+
+  pinBatchToScene.on('progress', function (event) {
+    console.log('Scene progress changed to ' + event.progress);
+    upDirection = oldProgress > event.progress;
+    oldProgress = event.progress;
+    console.log(upDirection);
+
+    if (!upDirection) {
+      moveImageToRight(40);
+    } else {
+      moveImageToLeft(40);
+    }
+
+    // if (!continueScroll) {
+    //   pinBatchToScene = pinBatchToScene.destroy(true);
+    // }
+  });
+
+  pinBatchToScene.on('end', function (event) {
+    pinBatchToScene = pinBatchToScene.destroy(true);
+  });
 
   $('.hero').slick({
     infinite: true,
@@ -209,6 +307,47 @@ window.addEventListener('load', () => {
     draggable: false,
   });
 
+  var elems = document.querySelectorAll('.prod-title');
+
+  mtiSelector.addEventListener('click', () => {
+    prodSlider.classList.add('show');
+    prodCloseBtn.classList.add('show');
+
+    elems.forEach((element) => {
+      if (element === document.querySelector('.mti-selector')) {
+        element.classList.add('selected-main');
+      } else {
+        element.classList.remove('selected-main');
+      }
+    });
+  });
+
+  coreSelector.addEventListener('click', () => {
+    prodSlider.classList.add('show');
+    prodCloseBtn.classList.add('show');
+
+    elems.forEach((element) => {
+      if (element === document.querySelector('.core-selector')) {
+        element.classList.add('selected-main');
+      } else {
+        element.classList.remove('selected-main');
+      }
+    });
+  });
+
+  mtzSelector.addEventListener('click', () => {
+    prodSlider.classList.add('show');
+    prodCloseBtn.classList.add('show');
+
+    elems.forEach((element) => {
+      if (element === document.querySelector('.mtz-selector')) {
+        element.classList.add('selected-main');
+      } else {
+        element.classList.remove('selected-main');
+      }
+    });
+  });
+
   $('.mti-selector').on('click', function () {
     $('.slick-prod-slider').slick('slickGoTo', 0);
   });
@@ -221,6 +360,18 @@ window.addEventListener('load', () => {
     $('.slick-prod-slider').slick('slickGoTo', 2);
   });
 
+  $('#mti-img-selector').on('click', function () {
+    $('.slick-prod-slider').slick('slickGoTo', 0);
+  });
+
+  $('#core-img-selector').on('click', function () {
+    $('.slick-prod-slider').slick('slickGoTo', 1);
+  });
+
+  $('#mtz-img-selector').on('click', function () {
+    $('.slick-prod-slider').slick('slickGoTo', 2);
+  });
+
   // Prod Title Clicks
   document.addEventListener('click', (event) => {
     if (!event.target.classList.contains('prod-title')) return;
@@ -229,25 +380,17 @@ window.addEventListener('load', () => {
     prodSlider.classList.add('show');
     prodCloseBtn.classList.add('show');
 
-    if (event.target.classList.contains('mti-selector')) {
-      // mtiFull.classList.add('img-selected');
-      // coreFull.classList.remove('img-selected');
-      // mtzFull.classList.remove('img-selected');
+    if (event.target === mtiSelector) {
+      document.querySelector('.mti-selector').classList.add('selected-main');
     }
 
-    if (event.target.classList.contains('core-selector')) {
-      // mtiFull.classList.remove('img-selected');
-      // coreFull.classList.add('img-selected');
-      // mtzFull.classList.remove('img-selected');
+    if (event.target === coreSelector) {
+      console.log('core image has been clicked');
     }
 
-    if (event.target.classList.contains('mtz-selector')) {
-      // mtiFull.classList.remove('img-selected');
-      // coreFull.classList.remove('img-selected');
-      // mtzFull.classList.add('img-selected');
+    if (event.target === mtzSelector) {
+      console.log('mtz image has been clicked');
     }
-
-    var elems = document.querySelectorAll('.prod-title');
 
     elems.forEach((element) => {
       if (element === event.target) return;

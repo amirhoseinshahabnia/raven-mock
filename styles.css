@@ -10,6 +10,14 @@ body {
   margin: 0 auto;
 }
 
+.container {
+  background-color: #000;
+}
+
+#batch-ctn.disable-scroll {
+  overscroll-behavior: contain;
+}
+
 a {
   text-decoration: none;
   font-size: 1em;
@@ -236,11 +244,21 @@ header .main-btn {
 }
 
 .lightbox {
+  position: relative;
   width: 60%;
   margin: 0 auto;
   height: auto;
   text-align: center;
   padding: 25px 0;
+}
+
+#lb-close-btn {
+  filter: invert(1);
+  cursor: pointer;
+  position: absolute;
+  width: 25px;
+  right: 15px;
+  top: 15px;
 }
 
 .full-btn {
@@ -396,7 +414,7 @@ img.img-desktop {
 
 #prod-close-btn {
   position: absolute;
-  width: 50px;
+  width: 30px;
   top: 15px;
   right: 15px;
   opacity: 0;
@@ -469,6 +487,7 @@ figure {
   transform: scale(1);
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .prod-tile-image:hover {
