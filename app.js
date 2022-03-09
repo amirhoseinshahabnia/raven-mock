@@ -30,6 +30,11 @@ window.addEventListener('load', () => {
   var mtzSelector = document.getElementById('mtz-img-selector');
   var allProdImgs = document.querySelectorAll('prod-tile-image');
 
+  var coreBgImg = document.getElementById('core-bg-img');
+
+  var bodyWidth = document.body.clientWidth;
+  var controller = new ScrollMagic.Controller();
+
   // Batch commands auto hor scroll
   const batchCtn = document.getElementById('batch-ctn');
   var continueScroll = true;
@@ -123,8 +128,6 @@ window.addEventListener('load', () => {
     circlesInitialLeft.push(circle);
   });
 
-  console.log(circlesInitialLeft);
-
   function moveImageToLeft(amount) {
     if (left === 0) {
       return;
@@ -195,6 +198,29 @@ window.addEventListener('load', () => {
   var onBatchCtn = false;
   var isGoingUp;
 
+  if (bodyWidth < 768) {
+    // gsap.to(coreBgImg, {
+    //   left: `-${coreBgImg.offsetWidth + header.offsetWidth}`,
+    //   duration: 4,
+    // });
+    var controller2 = new ScrollMagic.Controller();
+
+    var tl2 = new TimelineMax();
+    tl2.to(coreBgImg, {
+      x: '-500',
+      duration: 3,
+    });
+
+    var coreImgAnimation = new ScrollMagic.Scene({
+      triggerElement: coreBgImg,
+      triggerHook: 0.25,
+      reverse: false,
+    })
+      .setTween(tl2)
+      // .addIndicators()
+      .addTo(controller2);
+  }
+
   window.onscroll = (e) => {
     console.log('Hey there miss Zahra!');
     header.classList.add('sticky');
@@ -236,35 +262,36 @@ window.addEventListener('load', () => {
 
   var oldProgress = 0;
   var upDirection;
-  var controller = new ScrollMagic.Controller();
-  var pinBatchToScene = new ScrollMagic.Scene({
-    triggerElement: '.pins',
-    triggerHook: 0.14,
-    duration: 1000,
-  })
-    .setPin('.pins')
-    .addTo(controller);
 
-  pinBatchToScene.on('progress', function (event) {
-    console.log('Scene progress changed to ' + event.progress);
-    upDirection = oldProgress > event.progress;
-    oldProgress = event.progress;
-    console.log(upDirection);
+  if (bodyWidth >= 768) {
+    var pinBatchToScene = new ScrollMagic.Scene({
+      triggerElement: '.pins',
+      triggerHook: 0.14,
+      duration: 1000,
+    })
+      .setPin('.pins')
+      .addTo(controller);
 
-    if (!upDirection) {
-      moveImageToRight(40);
-    } else {
-      moveImageToLeft(40);
-    }
+    pinBatchToScene.on('progress', function (event) {
+      console.log('Scene progress changed to ' + event.progress);
+      upDirection = oldProgress > event.progress;
+      oldProgress = event.progress;
+      console.log(upDirection);
 
-    // if (!continueScroll) {
-    //   pinBatchToScene = pinBatchToScene.destroy(true);
-    // }
-  });
+      if (!upDirection) {
+        moveImageToRight(40);
+      } else {
+        moveImageToLeft(40);
+      }
 
-  pinBatchToScene.on('end', function (event) {
-    pinBatchToScene = pinBatchToScene.destroy(true);
-  });
+      // if (!continueScroll) {
+      //   pinBatchToScene = pinBatchToScene.destroy(true);
+      // }
+      pinBatchToScene.on('end', function (event) {
+        pinBatchToScene = pinBatchToScene.destroy(true);
+      });
+    });
+  }
 
   $('.hero').slick({
     infinite: true,
@@ -277,17 +304,54 @@ window.addEventListener('load', () => {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const tl = gsap.timeline();
-  tl.to('.fadeIn', { opacity: 1, duration: 1 });
-  tl.from('.moveDown', { y: -5 });
-  tl.from('.moveUp', { y: 5 });
+  $('.fadeIn').each(function () {
+    var tl = gsap.timeline();
+    tl.from($(this), { opacity: 0, duration: 0.4, ease: 'sine.out' });
 
-  ScrollTrigger.create({
-    animation: tl,
-
-    markers: false,
-    toggleActions: 'restart none none none',
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: 0.8,
+      reverse: false,
+    })
+      .setTween(tl)
+      .addIndicators()
+      .addTo(controller);
   });
+
+  $('.moveDown').each(function () {
+    var tl = gsap.timeline();
+    tl.from($(this), { y: -5 });
+
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: 0.5,
+      reverse: false,
+    })
+      .setTween(tl)
+      .addIndicators()
+      .addTo(controller);
+  });
+
+  $('.moveUp').each(function () {
+    var tl = gsap.timeline();
+    tl.from('.moveUp', { y: 5 });
+
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: 0.5,
+      reverse: false,
+    })
+      .setTween(tl)
+      .addIndicators()
+      .addTo(controller);
+  });
+
+  // ScrollTrigger.create({
+  //   animation: tl,
+
+  //   markers: false,
+  //   toggleActions: 'restart none none none',
+  // });
 
   $('.slider-showcase').slick({
     infinite: true,
@@ -309,94 +373,98 @@ window.addEventListener('load', () => {
 
   var elems = document.querySelectorAll('.prod-title');
 
-  mtiSelector.addEventListener('click', () => {
-    prodSlider.classList.add('show');
-    prodCloseBtn.classList.add('show');
+  if (bodyWidth >= 768) {
+    mtiSelector.addEventListener('click', () => {
+      prodSlider.classList.add('show');
+      prodCloseBtn.classList.add('show');
 
-    elems.forEach((element) => {
-      if (element === document.querySelector('.mti-selector')) {
-        element.classList.add('selected-main');
-      } else {
-        element.classList.remove('selected-main');
-      }
+      elems.forEach((element) => {
+        if (element === document.querySelector('.mti-selector')) {
+          element.classList.add('selected-main');
+        } else {
+          element.classList.remove('selected-main');
+        }
+      });
     });
-  });
 
-  coreSelector.addEventListener('click', () => {
-    prodSlider.classList.add('show');
-    prodCloseBtn.classList.add('show');
+    coreSelector.addEventListener('click', () => {
+      prodSlider.classList.add('show');
+      prodCloseBtn.classList.add('show');
 
-    elems.forEach((element) => {
-      if (element === document.querySelector('.core-selector')) {
-        element.classList.add('selected-main');
-      } else {
-        element.classList.remove('selected-main');
-      }
+      elems.forEach((element) => {
+        if (element === document.querySelector('.core-selector')) {
+          element.classList.add('selected-main');
+        } else {
+          element.classList.remove('selected-main');
+        }
+      });
     });
-  });
 
-  mtzSelector.addEventListener('click', () => {
-    prodSlider.classList.add('show');
-    prodCloseBtn.classList.add('show');
+    mtzSelector.addEventListener('click', () => {
+      prodSlider.classList.add('show');
+      prodCloseBtn.classList.add('show');
 
-    elems.forEach((element) => {
-      if (element === document.querySelector('.mtz-selector')) {
-        element.classList.add('selected-main');
-      } else {
-        element.classList.remove('selected-main');
-      }
+      elems.forEach((element) => {
+        if (element === document.querySelector('.mtz-selector')) {
+          element.classList.add('selected-main');
+        } else {
+          element.classList.remove('selected-main');
+        }
+      });
     });
-  });
 
-  $('.mti-selector').on('click', function () {
-    $('.slick-prod-slider').slick('slickGoTo', 0);
-  });
+    $('.mti-selector').on('click', function () {
+      $('.slick-prod-slider').slick('slickGoTo', 0);
+    });
 
-  $('.core-selector').on('click', function () {
-    $('.slick-prod-slider').slick('slickGoTo', 1);
-  });
+    $('.core-selector').on('click', function () {
+      $('.slick-prod-slider').slick('slickGoTo', 1);
+    });
 
-  $('.mtz-selector').on('click', function () {
-    $('.slick-prod-slider').slick('slickGoTo', 2);
-  });
+    $('.mtz-selector').on('click', function () {
+      $('.slick-prod-slider').slick('slickGoTo', 2);
+    });
 
-  $('#mti-img-selector').on('click', function () {
-    $('.slick-prod-slider').slick('slickGoTo', 0);
-  });
+    $('#mti-img-selector').on('click', function () {
+      $('.slick-prod-slider').slick('slickGoTo', 0);
+    });
 
-  $('#core-img-selector').on('click', function () {
-    $('.slick-prod-slider').slick('slickGoTo', 1);
-  });
+    $('#core-img-selector').on('click', function () {
+      $('.slick-prod-slider').slick('slickGoTo', 1);
+    });
 
-  $('#mtz-img-selector').on('click', function () {
-    $('.slick-prod-slider').slick('slickGoTo', 2);
-  });
+    $('#mtz-img-selector').on('click', function () {
+      $('.slick-prod-slider').slick('slickGoTo', 2);
+    });
+  }
 
   // Prod Title Clicks
-  document.addEventListener('click', (event) => {
-    if (!event.target.classList.contains('prod-title')) return;
+  if (bodyWidth >= 768) {
+    document.addEventListener('click', (event) => {
+      if (!event.target.classList.contains('prod-title')) return;
 
-    event.target.classList.add('selected-main');
-    prodSlider.classList.add('show');
-    prodCloseBtn.classList.add('show');
+      event.target.classList.add('selected-main');
+      prodSlider.classList.add('show');
+      prodCloseBtn.classList.add('show');
 
-    if (event.target === mtiSelector) {
-      document.querySelector('.mti-selector').classList.add('selected-main');
-    }
+      if (event.target === mtiSelector) {
+        document.querySelector('.mti-selector').classList.add('selected-main');
+      }
 
-    if (event.target === coreSelector) {
-      console.log('core image has been clicked');
-    }
+      if (event.target === coreSelector) {
+        console.log('core image has been clicked');
+      }
 
-    if (event.target === mtzSelector) {
-      console.log('mtz image has been clicked');
-    }
+      if (event.target === mtzSelector) {
+        console.log('mtz image has been clicked');
+      }
 
-    elems.forEach((element) => {
-      if (element === event.target) return;
-      element.classList.remove('selected-main');
+      elems.forEach((element) => {
+        if (element === event.target) return;
+        element.classList.remove('selected-main');
+      });
     });
-  });
+  }
 
   prodCloseBtn.addEventListener('click', () => {
     prodSlider.classList.remove('show');

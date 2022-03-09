@@ -52,6 +52,18 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.js"
+      integrity="sha512-judXDFLnOTJsUwd55lhbrX3uSoSQSOZR6vNrsll+4ViUFv+XOIr/xaIK96soMj6s5jVszd7I97a0H+WhgFwTEg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/debug.addIndicators.js"
+      integrity="sha512-mq6TSOBEH8eoYFBvyDQOQf63xgTeAk7ps+MHGLWZ6Byz0BqQzrP+3GIgYL+KvLaWgpL8XgDVbIRYQeLa3Vqu6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="app.js" defer></script>
     <title>Raven First Draft</title>
   </head>
@@ -129,6 +141,7 @@
           src="imgs/core-station-desktop.png"
           alt="Core Station"
           class="block"
+          id="core-bg-img"
         />
       </section>
       <section class="blackBg" id="gallery">
@@ -252,6 +265,7 @@
         </div>
         <img
           class="img-desktop"
+          id="fadders-img"
           src="imgs/faders.png"
           alt="RAVEN Ultra Accurate Faders"
         />
@@ -282,7 +296,7 @@
               alt="RAVEN MTZ"
             />
           </div>
-          <div>
+          <div class="single-prod">
             <figure>
               <img
                 src="imgs/mti-2-prod.png"
@@ -303,7 +317,7 @@
               </button>
             </div>
           </div>
-          <div>
+          <div class="single-prod">
             <figure>
               <img
                 src="imgs/core-prod.png"
@@ -324,7 +338,7 @@
               </button>
             </div>
           </div>
-          <div>
+          <div class="single-prod">
             <figure>
               <img
                 src="imgs/mtz-prod.png"

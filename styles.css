@@ -230,8 +230,8 @@ header .main-btn {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 9999;
   display: flex;
@@ -467,14 +467,9 @@ img.img-desktop {
 
 /* Gestures testing whenever enters view  */
 #gestures-vid {
-  outline: solid 1px #fff;
   transition: outline 0.5s ease-in;
   display: block;
   margin: 0 auto;
-}
-
-#gestures-vid.activated {
-  outline-width: 5px;
 }
 
 /* Prod image hover */
@@ -589,6 +584,93 @@ figure {
 
 #desc-details.activated {
   opacity: 1;
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    position: relative;
+  }
+
+  .reg-title {
+    font-size: 1.8em;
+  }
+
+  .main-nav,
+  .secondary-nav {
+    padding: 0 10px;
+  }
+
+  .secondary-nav ul {
+    justify-content: flex-end;
+  }
+
+  .hero {
+    height: 300px;
+  }
+
+  .content-ctn {
+    width: 90%;
+    max-width: 90%;
+  }
+
+  .secondary-nav li {
+    display: none;
+  }
+
+  .core-big {
+    padding-top: 0;
+    overflow-x: hidden;
+    position: relative;
+    height: 693px;
+  }
+
+  .core-big img {
+    width: 230%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  #gestures-vid {
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+  }
+
+  .lightbox {
+    width: 90%;
+  }
+
+  .prods-section {
+    flex-direction: column;
+  }
+
+  .prods-section .prod-desc {
+    padding: 50px 10px 50px;
+  }
+
+  .mtz-big-ctn {
+    padding-top: 0;
+  }
+
+  .mtz-big-ctn .custom-content {
+    position: static;
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+  }
+
+  #batch-horizontal-silder {
+    padding-bottom: 190px;
+  }
+
+  .desc {
+    bottom: 15px;
+  }
+
+  #fadders-img {
+    width: 90%;
+  }
 }
 
 @media screen and (min-width: 800px) {
