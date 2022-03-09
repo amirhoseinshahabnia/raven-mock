@@ -304,19 +304,19 @@ window.addEventListener('load', () => {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  $('.fadeIn').each(function () {
-    var tl = gsap.timeline();
-    tl.from($(this), { opacity: 0, duration: 0.4, ease: 'sine.out' });
+  // $('.fadeIn').each(function () {
+  //   var tl = gsap.timeline();
+  //   tl.from($(this), { opacity: 0, duration: 0.4, ease: 'sine.out' });
 
-    new ScrollMagic.Scene({
-      triggerElement: this,
-      triggerHook: 0.8,
-      reverse: false,
-    })
-      .setTween(tl)
-      .addIndicators()
-      .addTo(controller);
-  });
+  //   new ScrollMagic.Scene({
+  //     triggerElement: this,
+  //     triggerHook: 0.8,
+  //     reverse: false,
+  //   })
+  //     .setTween(tl)
+  //     // .addIndicators()
+  //     .addTo(controller);
+  // });
 
   $('.moveDown').each(function () {
     var tl = gsap.timeline();
@@ -328,7 +328,7 @@ window.addEventListener('load', () => {
       reverse: false,
     })
       .setTween(tl)
-      .addIndicators()
+      // .addIndicators()
       .addTo(controller);
   });
 
@@ -342,7 +342,7 @@ window.addEventListener('load', () => {
       reverse: false,
     })
       .setTween(tl)
-      .addIndicators()
+      // .addIndicators()
       .addTo(controller);
   });
 
