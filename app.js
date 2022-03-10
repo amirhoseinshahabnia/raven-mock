@@ -222,7 +222,6 @@ window.addEventListener('load', () => {
   }
 
   window.onscroll = (e) => {
-    console.log('Hey there miss Zahra!');
     header.classList.add('sticky');
 
     isGoingUp = this.oldScroll > this.scrollY;
@@ -532,6 +531,15 @@ window.addEventListener('load', () => {
           window.location.hash = hash;
         }
       );
+    }
+  });
+
+  // a solution to figure out which DOM element has a higher width and document width
+  var docWidth = document.documentElement.offsetWidth;
+
+  [].forEach.call(document.querySelectorAll('*'), function (el) {
+    if (el.offsetWidth > docWidth) {
+      console.log(el);
     }
   });
 });
