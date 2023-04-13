@@ -203,22 +203,26 @@ window.addEventListener('load', () => {
     //   left: `-${coreBgImg.offsetWidth + header.offsetWidth}`,
     //   duration: 4,
     // });
-    var controller2 = new ScrollMagic.Controller();
 
     var tl2 = new TimelineMax();
     tl2.to(coreBgImg, {
-      x: '-500',
-      duration: 3,
+      x: '-490',
+      duration: 2.4,
+      ease: 'expo.out',
     });
 
-    var coreImgAnimation = new ScrollMagic.Scene({
+    var coreAnimationScene = new ScrollMagic.Scene({
       triggerElement: coreBgImg,
-      triggerHook: 0.25,
+      triggerHook: 0.35,
       reverse: false,
     })
       .setTween(tl2)
       // .addIndicators()
-      .addTo(controller2);
+      .addTo(controller);
+
+    coreAnimationScene.on('change', function (event) {
+      console.log(event);
+    });
   }
 
   window.onscroll = (e) => {
@@ -319,7 +323,7 @@ window.addEventListener('load', () => {
 
   $('.moveDown').each(function () {
     var tl = gsap.timeline();
-    tl.from($(this), { y: -5 });
+    tl.from($(this), { y: -5, ease: 'power2.out' });
 
     new ScrollMagic.Scene({
       triggerElement: this,
@@ -333,11 +337,11 @@ window.addEventListener('load', () => {
 
   $('.moveUp').each(function () {
     var tl = gsap.timeline();
-    tl.from('.moveUp', { y: 5 });
+    tl.from($(this), { y: 10, ease: 'power1.out' });
 
     new ScrollMagic.Scene({
       triggerElement: this,
-      triggerHook: 0.5,
+      triggerHook: 0.6,
       reverse: false,
     })
       .setTween(tl)
